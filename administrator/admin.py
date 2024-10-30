@@ -4,3 +4,4 @@ from .models import *
 # Register your models here.
 admin.site.register(RegisterTable)
 admin.site.register(CriminalTable)
+admin.site.register(FireTable)

@@ -15,3 +15,11 @@ class CriminalTable(models.Model):
     Details=models.CharField(max_length=30,null=True,blank=True)
     Address=models.CharField(max_length=30,null=True,blank=True)
 
+class FireTable(models.Model):
+    Name= models.CharField(max_length=30, null=True, blank=True)
+    Address= models.CharField(max_length=30,null=True, blank=True)
+    Phone=models.CharField(max_length=30,null=True,blank=True)
+    Email=models.CharField(max_length=30,null=True,blank=True)
+    Location=models.CharField(max_length=30,null=True,blank=True)
+
+

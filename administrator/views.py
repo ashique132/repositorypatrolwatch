@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views import View
 
-from .form import RegForm, crimeform
-from .models import CriminalTable, RegisterTable
+from .form import RegForm, crimeform, fireform
+from .models import CriminalTable, FireTable, RegisterTable
 
 # Create your views here.
 
@@ -68,3 +68,36 @@ class delete_u(View):
         obj =view_userTable.objects.get(id=u_id)
         obj.delete()
         return HttpResponse('''<script>alert("delete successfully"); window.location="/view_user"</script>''')
+    
+class add_fire(View):
+    def get(self,request):
+        return render(request,"addfire.html")  
+    def post(self,request):
+        form=fireform(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('''<script>alert("registered successfully"); window.location="/view_fire"</script>''')
+
+
+class Edit_fire(View):
+    def get(self,request,id):
+        c=FireTable.objects.get(id=id)
+        return render(request,"editfire.html",{'val':c})
+    def post(self,request,id):
+        f=FireTable.objects.get(id=id)
+        form=fireform(request.POST,request.FILES,instance=f)
+        if form.is_valid():
+            form.save()
+            return redirect('view_fire')
+        
+class view_fire(View):
+    def get(self,request):
+        obj = FireTable.objects.all()
+        return render(request,"fire.html", {'val': obj})
+    
+class delete_f(View):
+    def get(self, request, f_id):
+        obj =FireTable.objects.get(id=f_id)
+        obj.delete()
+        return HttpResponse('''<script>alert("delete successfully"); window.location="/view_fire"</script>''')
+    
